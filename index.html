@@ -1,25 +1,87 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<html lang="en">
-
+<html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #app {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: darkred;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>To-Do List</h1>
+        <input type="text" id="new-task" placeholder="Add a new task..." />
+        <button id="add-task">Add Task</button>
+        <ul id="task-list"></ul>
+    </div>
+    <script>
+        const taskInput = document.getElementById('new-task');
+        const addTaskButton = document.getElementById('add-task');
+        const taskList = document.getElementById('task-list');
 
- <meta charset="UTF-8">
+        addTaskButton.addEventListener('click', addTask);
 
- <title>💗💗💗</title>
+        function addTask() {
+            const taskText = taskInput.value;
+            if (taskText === '') return;
 
- <style>
-  body {
-   margin: 0;
-   height: 100vh;
-   font-family: 'Poppins', sans-serif;
-   background: linear-gradient(135deg, #ff758c, #ff7eb3, #6a82fb);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   overflow: hidden;
-   color: white;
-  }
+            const li = document.createElement('li');
+            li.innerHTML = `${taskText} <button class='delete'>Delete</button>`;
 
-  /* floating hearts */
+            taskList.appendChild(li);
+
+            taskInput.value = '';
+
+            const deleteButton = li.querySelector('.delete');
+            deleteButton.addEventListener('click', () => {
+                taskList.removeChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
